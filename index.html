@@ -23,6 +23,34 @@
             line-height: 1.6;
         }
 
+        /* Skip to main content link - ADA Compliance */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, rgba(80, 140, 200, 0.95), rgba(50, 110, 170, 1));
+            color: #ffffff;
+            padding: 12px 30px;
+            text-decoration: none;
+            z-index: 1000;
+            font-weight: 600;
+            border: 2px solid rgba(120, 170, 220, 0.8);
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(80, 140, 200, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            transition: top 0.3s ease-in-out;
+        }
+
+        .skip-link:focus {
+            top: 20px;
+            outline: 3px solid #c8dff0;
+            outline-offset: 2px;
+            box-shadow: 0 6px 25px rgba(100, 160, 220, 0.7);
+        }
+
         .container {
             max-width: 100%;
             margin: 0 auto;
@@ -133,7 +161,7 @@
             background: linear-gradient(135deg, rgba(80, 140, 200, 0.9), rgba(50, 110, 170, 1));
             color: #ffffff;
             text-decoration: none;
-            border: 2px solid rgba(120, 170, 220, 0.8);
+            border: 1px solid rgba(120, 170, 220, 0.5);
             border-radius: 5px;
             font-size: 1rem;
             font-weight: 700;
@@ -143,10 +171,11 @@
             box-shadow: 0 4px 15px rgba(80, 140, 200, 0.3);
         }
 
-        .cta-button:hover {
-            background: linear-gradient(135deg, rgba(100, 160, 220, 1), rgba(70, 130, 190, 1));
+        .cta-button:hover,
+        .cta-button:focus {
             border-color: rgba(140, 190, 240, 1);
-            box-shadow: 0 6px 30px rgba(100, 160, 220, 0.6);
+            box-shadow: 0 0 20px rgba(100, 160, 220, 0.6);
+            transform: scale(1.05);
         }
 
         /* Profile Image Section */
@@ -166,7 +195,8 @@
             transition: filter 0.3s ease;
         }
 
-        .profile-image:hover {
+        .profile-image:hover,
+        .profile-image:focus {
             filter: grayscale(0%);
         }
 
@@ -202,7 +232,8 @@
             padding: 20px;
         }
 
-        .work-item:hover {
+        .work-item:hover,
+        .work-item:focus {
             background-color: rgba(10, 22, 40, 0.5);
             border-color: rgba(100, 150, 200, 0.6);
             transform: translateY(-3px);
@@ -225,7 +256,8 @@
             font-size: 1.2rem;
         }
 
-        .work-item:hover .work-arrow {
+        .work-item:hover .work-arrow,
+        .work-item:focus .work-arrow {
             opacity: 1;
             transform: translateX(5px);
         }
@@ -323,7 +355,8 @@
             transition: all 0.3s ease;
         }
 
-        .bandcamp-section:hover {
+        .bandcamp-section:hover,
+        .bandcamp-section:focus-within {
             background-color: rgba(10, 22, 40, 0.6);
             border-color: rgba(100, 150, 200, 0.6);
             transform: translateY(-2px);
@@ -344,7 +377,8 @@
             margin-top: 15px;
         }
 
-        .bandcamp-link:hover {
+        .bandcamp-link:hover,
+        .bandcamp-link:focus {
             background-color: rgba(60, 100, 150, 0.6);
             border-color: rgba(100, 150, 200, 0.8);
             box-shadow: 0 0 20px rgba(100, 150, 200, 0.4);
@@ -399,7 +433,8 @@
             justify-content: center;
         }
 
-        .social-links a:hover {
+        .social-links a:hover,
+        .social-links a:focus {
             padding-left: 0;
             text-shadow: 0 0 15px rgba(100, 150, 200, 0.8);
             transform: scale(1.1);
@@ -468,7 +503,8 @@
             transition: all 0.3s ease;
         }
 
-        .social-icon-link:hover {
+        .social-icon-link:hover,
+        .social-icon-link:focus {
             transform: translateY(-5px) scale(1.15);
             filter: drop-shadow(0 8px 20px rgba(100, 150, 200, 0.6));
         }
@@ -537,7 +573,8 @@
             width: 100%;
         }
 
-        button:hover {
+        button:hover,
+        button:focus {
             background-color: rgba(60, 100, 150, 0.8);
             box-shadow: 0 0 15px rgba(100, 150, 200, 0.5);
         }
@@ -553,7 +590,7 @@
             padding-top: 20px;
             border-top: 1px solid rgba(100, 150, 200, 0.3);
             font-size: 0.8rem;
-            color: #555;
+            color: #999; /* Improved from #555 for better contrast (4.5:1 ratio) */
         }
 
         .success-message {
@@ -646,21 +683,40 @@
                 max-width: 1000px;
             }
         }
+
+        /* ADA Compliance: Disable animations for users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Skip to main content link for keyboard navigation -->
+    <a href="#main-content" class="skip-link">Skip to Main Content</a>
+    
     <div class="container">
         <!-- Hero Image Section -->
+        <header>
         <div class="hero-image-section">
             <img src="images/hero-banner.jpg" alt="Dan Policar - Composer & Music Producer" class="hero-image">
         </div>
 
         <!-- Hero Section -->
-        <div class="hero-section">
+        <div class="hero-section" role="banner">
             <h1 class="hero-headline">Grammy-Nominated Music. Global Impact.</h1>
             <p class="hero-subheadline">Crafting Bold, Unique Music for Games, Film, and Big Brand Advertising.</p>
             <a href="#contact" class="cta-button">Start Your Project</a>
         </div>
+        </header>
+        
+        <main id="main-content">
 
         <!-- Profile Image -->
         <div class="profile-section">
@@ -685,7 +741,7 @@
         <div class="section">
             <h2>Portfolio: Music for Games, Film, and Brands</h2>
             <div class="works-grid">
-                <a href="https://store.steampowered.com/app/604540/Empire_of_Sin/" target="_blank" class="work-item">
+                <a href="https://store.steampowered.com/app/604540/Empire_of_Sin/" target="_blank" class="work-item" aria-label="Empire of Sin on Steam (opens in new tab)">
                     <img src="images/EmpireofSin.jpg" alt="Empire of Sin" class="work-thumbnail">
                     <div class="work-content">
                         <div class="work-title">
@@ -697,7 +753,7 @@
                         <span class="work-status status-released">Released</span>
                     </div>
                 </a>
-                <a href="https://store.steampowered.com/app/1098770/The_Crimson_Diamond/" target="_blank" class="work-item">
+                <a href="https://store.steampowered.com/app/1098770/The_Crimson_Diamond/" target="_blank" class="work-item" aria-label="The Crimson Diamond on Steam (opens in new tab)">
                     <img src="images/TCD.jpg" alt="The Crimson Diamond" class="work-thumbnail">
                     <div class="work-content">
                         <div class="work-title">
@@ -709,7 +765,7 @@
                         <span class="work-status status-released">Released</span>
                     </div>
                 </a>
-                <a href="https://www.hero-u.com/" target="_blank" class="work-item">
+                <a href="https://www.hero-u.com/" target="_blank" class="work-item" aria-label="Ifeyo's Adventure website (opens in new tab)">
                     <img src="images/Ifeyo.jpeg" alt="Ifeyo's Adventure" class="work-thumbnail">
                     <div class="work-content">
                         <div class="work-title">
@@ -721,7 +777,7 @@
                         <span class="work-status status-development">In Development</span>
                     </div>
                 </a>
-                <a href="https://store.steampowered.com/app/3108560/Mystery_House/" target="_blank" class="work-item">
+                <a href="https://store.steampowered.com/app/3108560/Mystery_House/" target="_blank" class="work-item" aria-label="Mystery House 3D on Steam (opens in new tab)">
                     <img src="images/MysteryHouse.jpg" alt="Mystery House 3D" class="work-thumbnail">
                     <div class="work-content">
                         <div class="work-title">
@@ -745,7 +801,7 @@
                     <h3>Homestead</h3>
                     <p>An intimate acoustic EP about roots, memory, and the quiet spaces where stories begin. Warm, organic, and human—built around real musicians and real emotion.</p>
                     <div class="bandcamp-section" style="margin-top: 20px; padding: 20px;">
-                        <a href="https://dantheband.bandcamp.com" target="_blank" class="bandcamp-link">
+                        <a href="https://dantheband.bandcamp.com" target="_blank" class="bandcamp-link" aria-label="Listen on Bandcamp (opens in new tab)">
                             <i class="fab fa-bandcamp bandcamp-icon"></i>
                             <span>Listen on Bandcamp</span>
                         </a>
@@ -758,22 +814,22 @@
         <div class="section">
             <h2>Socials</h2>
             <div class="social-icons-grid">
-                <a href="https://www.twitch.tv/dantheband" target="_blank" class="social-icon-link" title="Twitch - Live Composing">
+                <a href="https://www.twitch.tv/dantheband" target="_blank" class="social-icon-link" aria-label="Twitch - Live Composing (opens in new tab)">
                     <img src="images/icons/icons8-twitch-50.svg" alt="Twitch">
                 </a>
-                <a href="https://www.youtube.com/@danthebandmusic" target="_blank" class="social-icon-link" title="YouTube">
+                <a href="https://www.youtube.com/@danthebandmusic" target="_blank" class="social-icon-link" aria-label="YouTube (opens in new tab)">
                     <img src="images/icons/icons8-youtube-50.svg" alt="YouTube">
                 </a>
-                <a href="https://www.instagram.com/danthebandnyc/" target="_blank" class="social-icon-link" title="Instagram">
+                <a href="https://www.instagram.com/danthebandnyc/" target="_blank" class="social-icon-link" aria-label="Instagram (opens in new tab)">
                     <img src="images/icons/icons8-instagram-50.svg" alt="Instagram">
                 </a>
-                <a href="https://www.tiktok.com/@danthebandnyc" target="_blank" class="social-icon-link" title="TikTok">
+                <a href="https://www.tiktok.com/@danthebandnyc" target="_blank" class="social-icon-link" aria-label="TikTok (opens in new tab)">
                     <img src="images/icons/icons8-tiktok-50.svg" alt="TikTok">
                 </a>
-                <a href="https://www.facebook.com/DanTheBand/" target="_blank" class="social-icon-link" title="Facebook">
+                <a href="https://www.facebook.com/DanTheBand/" target="_blank" class="social-icon-link" aria-label="Facebook (opens in new tab)">
                     <img src="images/icons/icons8-facebook-50.svg" alt="Facebook">
                 </a>
-                <a href="https://www.linkedin.com/in/daniel-policar" target="_blank" class="social-icon-link" title="LinkedIn">
+                <a href="https://www.linkedin.com/in/daniel-policar" target="_blank" class="social-icon-link" aria-label="LinkedIn (opens in new tab)">
                     <img src="images/icons/icons8-linkedin-50.svg" alt="LinkedIn">
                 </a>
             </div>
@@ -818,16 +874,16 @@
             <h2>Get In Touch</h2>
             <p style="text-align: center; color: #c8dff0; margin-bottom: 25px; font-size: 1rem;">Ready to bring your project to life with a bold, unique score? Please tell me about your project, your timeline, and the specific needs of your music brief. I look forward to hearing from you!</p>
             <div class="contact-form">
-                <div class="success-message" id="successMessage">
+                <div class="success-message" id="successMessage" role="status" aria-live="polite" tabindex="-1">
                     Thank you for your message! I'll get back to you soon.
                 </div>
-                <div class="error-message" id="errorMessage">
+                <div class="error-message" id="errorMessage" role="alert" aria-live="assertive" tabindex="-1">
                     Sorry, there was an error sending your message. Please try again or contact me directly via social media.
                 </div>
                 <form id="contactForm">
                     <div class="form-group">
                         <label for="projectType">Project Type* (Required)</label>
-                        <select id="projectType" name="projectType" required>
+                        <select id="projectType" name="projectType" required aria-required="true">
                             <option value="">Select project type...</option>
                             <option value="game">Video Game Score</option>
                             <option value="film">Film / TV Score</option>
@@ -841,7 +897,7 @@
                     </div>
                     <div class="form-group">
                         <label for="timeline">Desired Timeline / Deadline* (Required)</label>
-                        <input type="text" id="timeline" name="timeline" required placeholder='E.g., "Need final delivery by March 2026"'>
+                        <input type="text" id="timeline" name="timeline" required aria-required="true" placeholder='E.g., "Need final delivery by March 2026"'>
                     </div>
                     <div class="form-group">
                         <label for="budget">Budget Range (Optional)</label>
@@ -858,20 +914,22 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Name* (Required)</label>
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" name="name" required aria-required="true">
                     </div>
                     <div class="form-group">
                         <label for="email">Email* (Required)</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email" required aria-required="true">
                     </div>
                     <button type="submit" id="submitBtn">Send Message</button>
                 </form>
             </div>
         </div>
 
-        <div class="footer">
+        </main>
+        
+        <footer class="footer">
             <p>&copy; 2025 Dan Policar. All rights reserved.</p>
-        </div>
+        </footer>
     </div>
 
     <script>
@@ -908,12 +966,15 @@
 
                 if (data.success) {
                     successMessage.style.display = 'block';
+                    successMessage.focus(); // Move focus to success message for screen readers
                     form.reset();
                 } else {
                     errorMessage.style.display = 'block';
+                    errorMessage.focus(); // Move focus to error message for screen readers
                 }
             } catch (error) {
                 errorMessage.style.display = 'block';
+                errorMessage.focus(); // Move focus to error message for screen readers
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Send Message';
