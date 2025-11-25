@@ -322,7 +322,11 @@
 
         .release-artwork {
             width: 100%;
+            height: auto;
             max-width: 18.75rem;
+            max-height: 18.75rem;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
             border-radius: 0.5rem;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
@@ -347,6 +351,7 @@
 
             .release-artwork {
                 max-width: 15.625rem;
+                max-height: 15.625rem;
             }
 
             .release-info {
@@ -849,6 +854,7 @@
                  <img loading="lazy" src="images/optimized/homestead-2048.webp" alt="Homestead EP Album Artwork" class="release-artwork" width="2048" height="2048"
                      srcset="images/optimized/homestead-480.webp 480w, images/optimized/homestead-800.webp 800w, images/optimized/homestead-1200.webp 1200w, images/optimized/homestead-2048.webp 2048w"
                      sizes="(min-width: 768px) 300px, 80vw">
+                <div class="release-info">
                     <p>An intimate acoustic EP about roots, memory, and the quiet spaces where stories begin. Warm, organic, and human—built around real musicians and real emotion.</p>
                     <div class="bandcamp-section" style="margin-top: 1.25rem; padding: 1.25rem;">
                         <a href="https://dantheband.bandcamp.com" target="_blank" rel="noopener noreferrer" class="bandcamp-link interactive-hover" aria-label="Listen on Bandcamp (opens in new tab)">
