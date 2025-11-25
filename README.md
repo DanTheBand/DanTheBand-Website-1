@@ -10,6 +10,8 @@ A professional portfolio website for Grammy-nominated composer Dan Policar.
 - **Selected Works** - Showcase of game compositions and projects
 - **Social Media Integration** - Links to Twitch, YouTube, Instagram, and TikTok
 - **Contact Form** - Integrated contact form for inquiries
+ - **Accessibility Improvements** - Skip-to-content link, visible focus states, ARIA roles for form success/error messages, and keyboard-friendly interactions
+ - **Cleaned CTAs** - Removed a redundant "DISCUSS YOUR PROJECT" button (one primary CTA remains)
 
 ## Setup Instructions
 
@@ -35,6 +37,8 @@ The contact form is currently configured to use **Web3Forms** (a free service). 
 - Use **EmailJS** ([emailjs.com](https://www.emailjs.com))
 - Set up your own backend server
 
+Note: The contact form script now adds ARIA roles and moves focus to the success/error messages for better screen-reader feedback.
+
 ### Deployment Options
 
 You can deploy this website to:
@@ -50,8 +54,9 @@ You can deploy this website to:
 dan-portfolio/
 ├── index.html          # Main HTML file
 ├── images/             # Image assets
-│   ├── hero-banner.png # Hero section banner
-│   └── dan-headshot.jpg # Profile photo
+│   ├── hero-banner.jpg # Hero section banner (jpg)
+│   ├── dan-headshot.jpg # Profile photo (jpg)
+│   └── Homestead.jpg   # Release artwork (jpg)
 └── README.md           # This file
 ```
 
@@ -63,6 +68,14 @@ dan-portfolio/
 - **Works**: Add or modify entries in the "Selected Works" grid
 - **Social Links**: Update URLs in the "Music & Streaming" and "Connect" sections
 - **Colors**: Modify the CSS color variables (purple theme: `#d8b3ff`, `rgba(62, 6, 112, ...)`)
+
+## Recent Changes (Changelog)
+
+- Removed redundant CTA: the "DISCUSS YOUR PROJECT" button in the Testimonials section was removed; the hero CTA (`Start Your Project`) and the Contact form are the primary ways to reach out.
+- Accessibility improvements: added a visible "Skip to Main Content" link, ARIA roles for form messages, and programmatic focus on success/error messages for screen-readers.
+- CSS cleanup: spacing and many layout values are being migrated from `px` to relative units (`rem`, `%`) for better responsiveness; this is a partial refactor and will continue.
+
+If you'd like, I can continue the px→rem conversions across the entire style block, or extract the styles into a separate `styles.css` file for easier maintenance.
 
 ### Adding New Sections
 
