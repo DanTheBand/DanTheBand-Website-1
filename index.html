@@ -40,12 +40,12 @@
         /* Skip to main content link - ADA Compliance */
         .skip-link {
             position: absolute;
-            top: -6.25rem;
+               top: -6.25rem;
             left: 50%;
             transform: translateX(-50%);
             background: linear-gradient(135deg, rgba(80, 140, 200, 0.95), rgba(50, 110, 170, 1));
-            color: #fff;
-            padding: 0.75rem 1.875rem;
+            color: #ffffff;
+               padding: 0.75rem 1.875rem;
             text-decoration: none;
             z-index: 1000;
             font-weight: 600;
@@ -65,6 +65,7 @@
             box-shadow: 0 6px 25px rgba(100, 160, 220, 0.7);
         }
 
+        /* Visible focus for keyboard users */
         :focus-visible {
             outline: 3px solid #c8dff0;
             outline-offset: 2px;
@@ -175,9 +176,9 @@
             font-weight: 300;
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 0.9375rem 2.5rem;
+                            .cta-button {
+                        display: inline-block;
+                        padding: 0.9375rem 2.5rem;
             background: linear-gradient(135deg, rgba(80, 140, 200, 0.9), rgba(50, 110, 170, 1));
             color: #ffffff;
             text-decoration: none;
@@ -197,7 +198,8 @@
             border-color: rgba(140, 190, 240, 1);
             box-shadow: 0 0 20px rgba(100, 160, 220, 0.6);
             transform: scale(1.05);
-                /* .interactive-hover handles padding and background changes for consistent Bandcamp-style hover. */
+            /* Let .interactive-hover handle padding and background changes so
+               the Bandcamp-style hover is consistent across elements. */
         }
 
         /* Profile Image Section */
@@ -627,7 +629,11 @@
         button:focus {
             background-color: rgba(60, 100, 150, 0.8);
             box-shadow: 0 0 15px rgba(100, 150, 200, 0.5);
-            padding-left: 3.125rem;
+            /* 🛑 ADD THIS LINE 🛑 */
+            /* Shifts the content 0.625rem to the right (from 2.5rem base to 3.125rem) */
+            padding-left: 3.125rem; 
+
+            /* OPTIONAL: Reduce right padding to keep the total button width stable */
             padding-right: 1.875rem;
         }
 
