@@ -20,6 +20,140 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVJkEZSMUkrQ6F2FcSmuv2Vtp8fQSO4XOJ+a5z36DQnqI6N4ecvAfJDtOW59QmLCWLMO0TzygA==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="preload" as="image" href="images/optimized/hero-1584.webp">
     <style>
+                        /* ===== Audio Reel Styles ===== */
+
+                        .audio-section-heading {
+                            font-size: 1.4rem;
+                            margin: 28px 0 4px;
+                            font-weight: 600;
+                        }
+
+                        .audio-section-subtitle {
+                            font-size: 0.9rem;
+                            opacity: 0.8;
+                            margin-bottom: 14px;
+                        }
+
+                        .audio-reel {
+                            border-radius: 14px;
+                            background: rgba(6, 10, 26, 0.92);
+                            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65);
+                            padding: 18px 18px 10px;
+                            backdrop-filter: blur(6px);
+                        }
+
+                        .audio-player {
+                            margin-bottom: 12px;
+                            border-radius: 10px;
+                            border: 1px solid rgba(255, 255, 255, 0.05);
+                            background: radial-gradient(circle at top left, rgba(126, 196, 255, 0.13), transparent),
+                                radial-gradient(circle at bottom right, rgba(148, 97, 255, 0.13), transparent);
+                            padding: 10px 12px 6px;
+                        }
+
+                        .current-track {
+                            margin-bottom: 8px;
+                        }
+
+                        .current-track-label {
+                            font-size: 0.78rem;
+                            text-transform: uppercase;
+                            letter-spacing: 0.11em;
+                            opacity: 0.7;
+                            margin-bottom: 3px;
+                        }
+
+                        .track-title {
+                            font-weight: 600;
+                            font-size: 1rem;
+                        }
+
+                        .track-meta {
+                            font-size: 0.85rem;
+                            opacity: 0.8;
+                        }
+
+                        audio {
+                            width: 100%;
+                            margin-top: 8px;
+                            outline: none;
+                        }
+
+                        /* ===== Track List ===== */
+
+                        .track-list {
+                            list-style: none;
+                            margin: 6px -6px 0;
+                            padding: 0;
+                            border-top: 1px solid rgba(255, 255, 255, 0.07);
+                        }
+
+                        .track-list-group-label {
+                            font-size: 0.8rem;
+                            text-transform: uppercase;
+                            letter-spacing: 0.16em;
+                            opacity: 0.7;
+                            margin: 10px 6px 2px;
+                        }
+
+                        .track-list li {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 8px 6px;
+                            cursor: pointer;
+                            font-size: 0.94rem;
+                            border-radius: 8px;
+                            transition: background 0.12s ease, transform 0.05s ease,
+                                box-shadow 0.12s ease;
+                            margin: 2px 0;
+                        }
+
+                        .track-list li:hover {
+                            background: rgba(255, 255, 255, 0.03);
+                            transform: translateX(1px);
+                        }
+
+                        .track-list li.active {
+                            background: linear-gradient(
+                                90deg,
+                                rgba(126, 196, 255, 0.2),
+                                rgba(148, 97, 255, 0.2)
+                            );
+                            box-shadow: 0 0 0 1px rgba(192, 224, 255, 0.4);
+                        }
+
+                        .track-main {
+                            display: flex;
+                            flex-direction: column;
+                            flex: 1;
+                            min-width: 0;
+                            margin-right: 10px;
+                        }
+
+                        .track-name {
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+
+                        .track-origin {
+                            font-size: 0.78rem;
+                            opacity: 0.75;
+                        }
+
+                        .track-extra {
+                            font-size: 0.78rem;
+                            opacity: 0.7;
+                            white-space: nowrap;
+                            text-align: right;
+                        }
+
+                        @media (max-width: 600px) {
+                            .audio-reel {
+                                padding: 14px 12px 8px;
+                            }
+                        }
         * {
             margin: 0;
             padding: 0;
@@ -898,6 +1032,124 @@
                     </div>
                 </a>
             </div>
+                </div>
+
+                <!-- Selected Game Cues Audio Reel Section -->
+                <section id="selected-game-cues">
+                    <h2 class="audio-section-heading">Selected Game Cues</h2>
+                    <p class="audio-section-subtitle">
+                        Short, focused excerpts so you can hear how I handle theme, mood, and
+                        storytelling without leaving this page.
+                    </p>
+
+                    <div class="audio-reel">
+                        <!-- Current Track Display + Player -->
+                        <div class="audio-player">
+                            <div class="current-track">
+                                <div class="current-track-label">Now Playing</div>
+                                <div class="track-title" id="current-title">
+                                    Select a cue to listen
+                                </div>
+                                <div class="track-meta" id="current-meta"></div>
+                            </div>
+
+                            <audio id="reel-audio" controls preload="none">
+                                <source id="reel-source" src="" type="audio/mpeg" />
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+
+                        <!-- Track List -->
+                        <ul class="track-list">
+                            <!-- Group: Empire of Sin -->
+                            <li class="track-list-group-label">Best of Empire of Sin</li>
+
+                            <li
+                                data-src="audio/eos_main_theme_excerpt.mp3"
+                                data-title="Empire of Sin – Main Theme (excerpt)"
+                                data-meta="Cinematic noir / big-band jazz palette"
+                            >
+                                <div class="track-main">
+                                    <span class="track-name"
+                                        >Empire of Sin – Main Theme (excerpt)</span
+                                    >
+                                    <span class="track-origin">Empire of Sin (Romero Games)</span>
+                                </div>
+                                <span class="track-extra">~0:35</span>
+                            </li>
+
+                            <li
+                                data-src="audio/eos_combat_excerpt.mp3"
+                                data-title="Empire of Sin – Combat Cue"
+                                data-meta="High-energy swing, tension + motion"
+                            >
+                                <div class="track-main">
+                                    <span class="track-name">Combat Cue (excerpt)</span>
+                                    <span class="track-origin">Empire of Sin</span>
+                                </div>
+                                <span class="track-extra">~0:30</span>
+                            </li>
+
+                            <!-- Group: The Crimson Diamond -->
+                            <li class="track-list-group-label">Best of The Crimson Diamond</li>
+
+                            <li
+                                data-src="audio/tcd_title_theme_excerpt.mp3"
+                                data-title="The Crimson Diamond – Title Theme"
+                                data-meta="Mystery, warmth, and retro PC adventure vibes"
+                            >
+                                <div class="track-main">
+                                    <span class="track-name">The Crimson Diamond – Title Theme</span>
+                                    <span class="track-origin">The Crimson Diamond</span>
+                                </div>
+                                <span class="track-extra">~0:40</span>
+                            </li>
+
+                            <li
+                                data-src="audio/tcd_interior_cue_excerpt.mp3"
+                                data-title="The Crimson Diamond – Interior Cue"
+                                data-meta="Cozy, looping exploration music"
+                            >
+                                <div class="track-main">
+                                    <span class="track-name">Interior Cue (excerpt)</span>
+                                    <span class="track-origin">The Crimson Diamond</span>
+                                </div>
+                                <span class="track-extra">~0:30</span>
+                            </li>
+
+                            <!-- Group: Other Highlights / Reel -->
+                            <li class="track-list-group-label">Other Highlights</li>
+
+                            <li
+                                data-src="audio/moonstone_hopesdawn_excerpt.mp3"
+                                data-title="Moonstone: Resonance – Hope's Dawn"
+                                data-meta="Piano-driven, emotional opener"
+                            >
+                                <div class="track-main">
+                                    <span class="track-name"
+                                        >Moonstone: Resonance – Hope's Dawn (excerpt)</span
+                                    >
+                                    <span class="track-origin">Moonstone: Resonance</span>
+                                </div>
+                                <span class="track-extra">~0:35</span>
+                            </li>
+
+                            <li
+                                data-src="audio/ifeyo_ghost_theme_excerpt.mp3"
+                                data-title="Ifeyo's Adventure – Ghost Theme"
+                                data-meta="Haunting thematic writing for visual novel"
+                            >
+                                <div class="track-main">
+                                    <span class="track-name"
+                                        >Ifeyo's Adventure – Ghost Theme (excerpt)</span
+                                    >
+                                    <span class="track-origin">Ifeyo's Adventure</span>
+                                </div>
+                                <span class="track-extra">~0:35</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
         </div>
 
         <!-- Testimonials Section -->
@@ -1083,5 +1335,41 @@
             }
         });
     </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const audio = document.getElementById("reel-audio");
+        const source = document.getElementById("reel-source");
+        const titleEl = document.getElementById("current-title");
+        const metaEl = document.getElementById("current-meta");
+        const trackItems = document.querySelectorAll(".track-list li[data-src]");
+
+        trackItems.forEach(function (item) {
+            item.addEventListener("click", function () {
+                const src = item.getAttribute("data-src");
+                const title = item.getAttribute("data-title") || "";
+                const meta = item.getAttribute("data-meta") || "";
+
+                // Clear active states
+                trackItems.forEach(function (el) {
+                    el.classList.remove("active");
+                });
+                item.classList.add("active");
+
+                // Update audio source
+                source.src = src;
+                audio.load();
+                audio
+                    .play()
+                    .catch(function () {
+                        // Some browsers block autoplay from JS — ignore error.
+                    });
+
+                // Update labels
+                titleEl.textContent = title;
+                metaEl.textContent = meta;
+            });
+        });
+    });
+</script>
 </body>
 </html>
