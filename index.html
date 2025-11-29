@@ -19,6 +19,8 @@
     <meta name="twitter:image" content="https://danpolicar.com/images/optimized/hero-1584.webp">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVJkEZSMUkrQ6F2FcSmuv2Vtp8fQSO4XOJ+a5z36DQnqI6N4ecvAfJDtOW59QmLCWLMO0TzygA==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="preload" as="image" href="images/optimized/hero-1584.webp">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js" defer></script>
+        <link rel="preload" as="image" href="images/optimized/hero-1584.webp">
     <style>
                         /* ===== Audio Reel Styles ===== */
 
@@ -174,7 +176,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
+        /* removed extra closing brace */
 
         html {
             scroll-behavior: smooth;
@@ -894,14 +896,236 @@
 
         /* ADA Compliance: Disable animations for users who prefer reduced motion */
         @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
+                            *,
+                            *::before,
+                            *::after {
+                                animation-duration: 0.01ms !important;
+                                animation-iteration-count: 1 !important;
+                                transition-duration: 0.01ms !important;
+                                scroll-behavior: auto !important;
+                            }
+                        }
+
+                        /* === Audio Reel Enhancements (scroll, fades, cover art, mini-player) === */
+
+                        /* Make the whole reel a vertical flex container with a max height */
+                        .audio-reel {
+                            display: flex;
+                            flex-direction: column;
+                            max-height: 400px;
+                        }
+
+                        @media (min-width: 768px) {
+                            .audio-reel {
+                                max-height: 460px;
+                            }
+                        }
+
+                        /* Keep the player fixed at the top of the card; list scrolls under it */
+                        .audio-player {
+                            flex-shrink: 0;
+                        }
+
+                        /* Current track layout (art + text) */
+                        .current-track {
+                            display: flex;
+                            align-items: flex-start;
+                            gap: 10px;
+                            margin-bottom: 8px;
+                        }
+
+                        .current-art {
+                            width: 44px;
+                            height: 44px;
+                            border-radius: 6px;
+                            flex-shrink: 0;
+                            background: radial-gradient(circle at top left, rgba(126, 196, 255, 0.2), transparent),
+                                radial-gradient(circle at bottom right, rgba(148, 97, 255, 0.2), transparent);
+                            overflow: hidden;
+                            background-size: cover;
+                            background-position: center;
+                            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+                            opacity: 0.7;
+                            transition: opacity 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+                        }
+
+                        .current-art.has-art {
+                            opacity: 1;
+                            box-shadow: 0 0 0 1px rgba(192, 224, 255, 0.6);
+                            transform: translateZ(0);
+                        }
+
+                        .current-track-text {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 2px;
+                        }
+
+                        /* Scrollable track list with fades */
+                        .track-list {
+                            flex: 1;
+                            overflow-y: auto;
+                            position: relative;
+                            padding-right: 4px; /* room for scrollbar */
+                        }
+
+                        /* Fade overlays at top and bottom of the scroll area */
+                        .track-list::before,
+                        .track-list::after {
+                            content: "";
+                            position: absolute;
+                            left: 0;
+                            right: 0;
+                            height: 16px;
+                            pointer-events: none;
+                            z-index: 2;
+                            transition: opacity 0.2s ease;
+                        }
+
+                        .track-list::before {
+                            top: 0;
+                            background: linear-gradient(
+                                to bottom,
+                                rgba(3, 7, 18, 0.85),
+                                transparent
+                            );
+                        }
+
+                        .track-list::after {
+                            bottom: 0;
+                            background: linear-gradient(
+                                to top,
+                                rgba(3, 7, 18, 0.85),
+                                transparent
+                            );
+                        }
+
+                        /* Hide top/bottom fade when at extremes */
+                        .track-list.at-top::before {
+                            opacity: 0;
+                        }
+                        .track-list.at-bottom::after {
+                            opacity: 0;
+                        }
+
+                        /* Refined hover/active states */
+                        .track-list li {
+                            transition:
+                                background 0.12s ease,
+                                transform 0.08s ease,
+                                box-shadow 0.12s ease;
+                        }
+
+                        .track-list li:hover:not(.track-list-group-label) {
+                            background: rgba(255, 255, 255, 0.04);
+                            transform: translateX(2px);
+                        }
+
+                        .track-list li:active:not(.track-list-group-label) {
+                            transform: translateX(0);
+                            box-shadow: 0 0 0 1px rgba(192, 224, 255, 0.3);
+                        }
+
+                        .track-list li.active {
+                            background: linear-gradient(
+                                90deg,
+                                rgba(126, 196, 255, 0.22),
+                                rgba(148, 97, 255, 0.22)
+                            );
+                            box-shadow: 0 0 0 1px rgba(192, 224, 255, 0.55);
+                        }
+
+                        /* === Mini-player bar === */
+
+                        .mini-player {
+                            position: fixed;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            padding: 10px 16px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            background: linear-gradient(
+                                90deg,
+                                rgba(10, 22, 40, 0.98),
+                                rgba(9, 9, 20, 0.98)
+                            );
+                            border-top: 1px solid rgba(255, 255, 255, 0.08);
+                            backdrop-filter: blur(10px);
+                            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+                            transform: translateY(100%);
+                            opacity: 0;
+                            pointer-events: none;
+                            z-index: 40;
+                            transition: transform 0.22s ease, opacity 0.22s ease;
+                        }
+
+                        .mini-player.visible {
+                            transform: translateY(0);
+                            opacity: 1;
+                            pointer-events: auto;
+                        }
+
+                        .mini-player-main {
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                        }
+
+                        .mini-player-text {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 2px;
+                        }
+
+                        .mini-label {
+                            font-size: 0.74rem;
+                            text-transform: uppercase;
+                            letter-spacing: 0.16em;
+                            opacity: 0.65;
+                        }
+
+                        .mini-title {
+                            font-size: 0.9rem;
+                            font-weight: 500;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+
+                        .mini-toggle {
+                            border: none;
+                            border-radius: 999px;
+                            padding: 6px 14px;
+                            font-size: 0.9rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                            background: radial-gradient(circle at top left, rgba(126, 196, 255, 0.35), transparent),
+                                radial-gradient(circle at bottom right, rgba(148, 97, 255, 0.35), transparent);
+                            color: #f3f4f6;
+                            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+                            transition: transform 0.1s ease, box-shadow 0.15s ease, background 0.15s ease;
+                        }
+
+                        .mini-toggle:hover {
+                            transform: translateY(-1px);
+                            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+                        }
+
+                        .mini-toggle:active {
+                            transform: translateY(0);
+                            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+                        }
+
+                        @media (max-width: 640px) {
+                            .mini-player {
+                                padding-inline: 12px;
+                            }
+                            .mini-title {
+                                max-width: 70vw;
+                            }
+                        }
         }
     </style>
     <script type="application/ld+json">
@@ -1064,11 +1288,15 @@
                             <!-- Current Track Display + Player -->
                             <div class="audio-player">
                                 <div class="current-track">
-                                    <div class="current-track-label">Now Playing</div>
-                                    <div class="track-title" id="current-title">
-                                        Select a cue to listen
+                                    <div class="current-art" id="current-art" aria-hidden="true"></div>
+
+                                    <div class="current-track-text">
+                                        <div class="current-track-label">Now Playing</div>
+                                        <div class="track-title" id="current-title">
+                                            Select a cue to listen
+                                        </div>
+                                        <div class="track-meta" id="current-meta"></div>
                                     </div>
-                                    <div class="track-meta" id="current-meta"></div>
                                 </div>
 
                                 <audio id="reel-audio" controls preload="none">
@@ -1343,61 +1571,251 @@
         });
     </script>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const audio = document.getElementById("reel-audio");
-    const source = document.getElementById("reel-source");
-    const titleEl = document.getElementById("current-title");
-    const metaEl = document.getElementById("current-meta");
-    const trackItems = document.querySelectorAll(".track-list li[data-src]");
+    document.addEventListener("DOMContentLoaded", function () {
+        const audio = document.getElementById("reel-audio");
+        const source = document.getElementById("reel-source");
+        const titleEl = document.getElementById("current-title");
+        const metaEl = document.getElementById("current-meta");
+        const trackItems = document.querySelectorAll(".track-list li[data-src]");
+        const trackList = document.querySelector(".track-list");
 
-    trackItems.forEach(function (item) {
-        // Auto-calculate and display duration for each track
-        const durationEl = item.querySelector(".track-extra");
-        const src = item.getAttribute("data-src");
+        const audioSection = document.getElementById("selected-game-cues");
 
-        if (durationEl && src) {
-            const tempAudio = new Audio();
-            tempAudio.src = src;
-            tempAudio.preload = "metadata";
+        const miniPlayer = document.getElementById("mini-player");
+        const miniTitle = document.getElementById("mini-title");
+        const miniToggle = document.getElementById("mini-toggle");
 
-            tempAudio.addEventListener("loadedmetadata", function () {
-                if (!isNaN(tempAudio.duration)) {
-                    const totalSeconds = Math.floor(tempAudio.duration);
-                    const minutes = Math.floor(totalSeconds / 60);
-                    const seconds = totalSeconds % 60;
-                    durationEl.textContent =
-                        minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+        const artEl = document.getElementById("current-art");
+        const artCache = new Map(); // cache data URLs per src
+
+        /* ---- Helpers ---- */
+
+        function updateTrackListFades() {
+            if (!trackList) return;
+            const scrollTop = trackList.scrollTop;
+            const maxScroll = trackList.scrollHeight - trackList.clientHeight - 1;
+
+            trackList.classList.toggle("at-top", scrollTop <= 0);
+            trackList.classList.toggle("at-bottom", scrollTop >= maxScroll);
+        }
+
+        function applyCoverArt(dataUrl) {
+            if (!artEl) return;
+            if (dataUrl) {
+                artEl.style.backgroundImage = "url('" + dataUrl + "')";
+                artEl.classList.add("has-art");
+            } else {
+                artEl.style.backgroundImage = "";
+                artEl.classList.remove("has-art");
+            }
+        }
+
+        function loadCoverArtForSrc(src) {
+            // Graceful fallback: if library or src missing, just show default gradient
+            if (!artEl || !src || typeof window.jsmediatags === "undefined") {
+                applyCoverArt(null);
+                return;
+            }
+
+            if (artCache.has(src)) {
+                applyCoverArt(artCache.get(src));
+                return;
+            }
+
+            window.jsmediatags.read(src, {
+                onSuccess: function (tag) {
+                    const picture = tag.tags && tag.tags.picture;
+                    if (!picture || !picture.data || !picture.data.length) {
+                        artCache.set(src, null);
+                        applyCoverArt(null);
+                        return;
+                    }
+
+                    let base64String = "";
+                    const data = picture.data;
+                    for (let i = 0; i < data.length; i++) {
+                        base64String += String.fromCharCode(data[i]);
+                    }
+                    const base64 =
+                        "data:" +
+                        (picture.format || "image/jpeg") +
+                        ";base64," +
+                        btoa(base64String);
+
+                    artCache.set(src, base64);
+                    applyCoverArt(base64);
+                },
+                onError: function () {
+                    artCache.set(src, null);
+                    applyCoverArt(null);
                 }
             });
         }
 
-        // Click behaviour: load + play track
-        item.addEventListener("click", function () {
-            const src = item.getAttribute("data-src");
-            const title = item.getAttribute("data-title") || "";
-            const meta = item.getAttribute("data-meta") || "";
+        function updateNowPlaying(title, meta, src) {
+            titleEl.textContent = title || "Select a cue to listen";
+            metaEl.textContent = meta || "";
+            if (miniTitle) {
+                miniTitle.textContent = title || "Select a cue";
+            }
 
-            // Clear active states
-            trackItems.forEach(function (el) {
-                el.classList.remove("active");
-            });
-            item.classList.add("active");
+            if (src) {
+                loadCoverArtForSrc(src);
+            } else {
+                applyCoverArt(null);
+            }
+        }
 
-            // Update audio source
-            source.src = src;
-            audio.load();
-            audio
-                .play()
-                .catch(function () {
-                    // Some browsers block autoplay from JS — ignore error.
+        function setMiniVisible(visible) {
+            if (!miniPlayer) return;
+            if (visible) {
+                miniPlayer.classList.add("visible");
+                miniPlayer.setAttribute("aria-hidden", "false");
+            } else {
+                miniPlayer.classList.remove("visible");
+                miniPlayer.setAttribute("aria-hidden", "true");
+            }
+        }
+
+        /* ---- Track list behavior ---- */
+
+        if (trackList) {
+            trackList.addEventListener("scroll", updateTrackListFades);
+            window.addEventListener("resize", updateTrackListFades);
+            updateTrackListFades();
+        }
+
+        trackItems.forEach(function (item) {
+            item.addEventListener("click", function () {
+                const src = item.getAttribute("data-src");
+                const title = item.getAttribute("data-title") || "";
+                const meta = item.getAttribute("data-meta") || "";
+
+                // Clear active states
+                trackItems.forEach(function (el) {
+                    el.classList.remove("active");
                 });
+                item.classList.add("active");
 
-            // Update labels
-            titleEl.textContent = title;
-            metaEl.textContent = meta;
+                // Mark that we have a selected track (for mini-player)
+                if (miniPlayer) {
+                    miniPlayer.classList.add("has-track");
+                }
+
+                // Update audio source
+                if (source && audio) {
+                    source.src = src || "";
+                    audio.load();
+                    audio
+                        .play()
+                        .catch(function () {
+                            // Some browsers block autoplay from JS — ignore error.
+                        });
+                }
+
+                // Update labels + cover art
+                updateNowPlaying(title, meta, src);
+
+                // Auto-scroll selected track into view within the scrollable list
+                item.scrollIntoView({
+                    block: "nearest",
+                    behavior: "smooth"
+                });
+            });
         });
+
+        /* ---- Mini-player & scroll detection ---- */
+
+        if (audioSection && miniPlayer && "IntersectionObserver" in window) {
+            const observer = new IntersectionObserver(
+                function (entries) {
+                    const entry = entries[0];
+                    const hasTrack = miniPlayer.classList.contains("has-track");
+
+                    if (!hasTrack) {
+                        setMiniVisible(false);
+                        return;
+                    }
+
+                    if (entry.isIntersecting) {
+                        // Main player is on screen → hide mini-player
+                        setMiniVisible(false);
+                    } else {
+                        // Main player off screen → show mini-player
+                        setMiniVisible(true);
+                    }
+                },
+                {
+                    threshold: 0.2
+                }
+            );
+
+            observer.observe(audioSection);
+        } else if (audioSection && miniPlayer) {
+            // Fallback without IntersectionObserver
+            function handleScrollFallback() {
+                const rect = audioSection.getBoundingClientRect();
+                const hasTrack = miniPlayer.classList.contains("has-track");
+
+                if (!hasTrack) {
+                    setMiniVisible(false);
+                    return;
+                }
+
+                const isVisible =
+                    rect.bottom > 80 &&
+                    rect.top < window.innerHeight - 80;
+
+                setMiniVisible(!isVisible);
+            }
+
+            window.addEventListener("scroll", handleScrollFallback);
+            window.addEventListener("resize", handleScrollFallback);
+            handleScrollFallback();
+        }
+
+        if (miniToggle && audio) {
+            miniToggle.addEventListener("click", function () {
+                if (audio.paused) {
+                    audio
+                        .play()
+                        .catch(function () {
+                            // ignore autoplay errors
+                        });
+                } else {
+                    audio.pause();
+                }
+            });
+
+            // Keep the mini-player button icon in sync with audio state
+            audio.addEventListener("play", function () {
+                miniToggle.textContent = "⏸";
+            });
+
+            audio.addEventListener("pause", function () {
+                miniToggle.textContent = "▶";
+            });
+        }
+
+        // Initialize display
+        updateNowPlaying("", "", "");
     });
-});
 </script>
+<div id="mini-player" class="mini-player" aria-hidden="true">
+    <div class="mini-player-main">
+        <div class="mini-player-text">
+            <div class="mini-label">Now Playing</div>
+            <div class="mini-title" id="mini-title">Select a cue</div>
+        </div>
+    </div>
+    <button
+        id="mini-toggle"
+        class="mini-toggle"
+        type="button"
+        aria-label="Play or pause"
+    >
+        ▶
+    </button>
+</div>
 </body>
 </html>
