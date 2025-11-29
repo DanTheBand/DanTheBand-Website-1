@@ -40,6 +40,9 @@
                             box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65);
                             padding: 18px 18px 10px;
                             backdrop-filter: blur(6px);
+                            display: flex;
+                            flex-direction: column;
+                            max-height: 380px;
                         }
 
                         .audio-player {
@@ -49,6 +52,7 @@
                             background: radial-gradient(circle at top left, rgba(126, 196, 255, 0.13), transparent),
                                 radial-gradient(circle at bottom right, rgba(148, 97, 255, 0.13), transparent);
                             padding: 10px 12px 6px;
+                            flex-shrink: 0;
                         }
 
                         .current-track {
@@ -86,6 +90,11 @@
                             margin: 6px -6px 0;
                             padding: 0;
                             border-top: 1px solid rgba(255, 255, 255, 0.07);
+
+                            /* NEW – scroll inside the card */
+                            flex: 1;
+                            overflow-y: auto;
+                            padding-right: 4px; /* space for scrollbar */
                         }
 
                         .track-list-group-label {
@@ -153,6 +162,13 @@
                             .audio-reel {
                                 padding: 14px 12px 8px;
                             }
+                        }
+
+                        /* Optional: Sticky audio player for scrollable experience */
+                        .sticky-audio {
+                            position: sticky;
+                            top: 1.5rem;
+                            z-index: 10;
                         }
         * {
             margin: 0;
@@ -503,6 +519,11 @@
             .release-info {
                 text-align: left;
                 flex: 1;
+            }
+
+            /* Slightly taller audio reel on desktop */
+            .audio-reel {
+                max-height: 440px;
             }
         }
 
@@ -1038,38 +1059,39 @@
                         storytelling without leaving this page.
                     </p>
 
-                    <div class="audio-reel">
-                        <!-- Current Track Display + Player -->
-                        <div class="audio-player">
-                            <div class="current-track">
-                                <div class="current-track-label">Now Playing</div>
-                                <div class="track-title" id="current-title">
-                                    Select a cue to listen
+                    <div class="sticky-audio">
+                        <div class="audio-reel">
+                            <!-- Current Track Display + Player -->
+                            <div class="audio-player">
+                                <div class="current-track">
+                                    <div class="current-track-label">Now Playing</div>
+                                    <div class="track-title" id="current-title">
+                                        Select a cue to listen
+                                    </div>
+                                    <div class="track-meta" id="current-meta"></div>
                                 </div>
-                                <div class="track-meta" id="current-meta"></div>
+
+                                <audio id="reel-audio" controls preload="none">
+                                    <source id="reel-source" src="" type="audio/mpeg" />
+                                    Your browser does not support the audio element.
+                                </audio>
                             </div>
 
-                            <audio id="reel-audio" controls preload="none">
-                                <source id="reel-source" src="" type="audio/mpeg" />
-                                Your browser does not support the audio element.
-                            </audio>
-                        </div>
-
-                        <!-- Track List -->
-                        <ul class="track-list">
+                            <!-- Track List -->
+                            <ul class="track-list">
     <!-- Group: Empire of Sin -->
     <li class="track-list-group-label">Empire of Sin - Romero Games/Paradox Interactive</li>
     <li data-src="audio/Empire of Sin Excerpts 1.mp3" data-title="Empire of Sin – Excerpts 1" data-meta="Main themes & cinematic jazz noir moments" tabindex="0" role="button" aria-label="Play Empire of Sin – Excerpts 1">
         <div class="track-main">
             <span class="track-name">Empire of Sin – Excerpts 1</span>
-            <span class="track-origin">Empire of Sin (Romero Games)</span>
+            <span class="track-origin">Empire of Sin</span>
         </div>
         <span class="track-extra">~0:30</span>
     </li>
     <li data-src="audio/Empire of Sin Excerpts 2.mp3" data-title="Empire of Sin – Excerpts 2" data-meta="Combat energy, tension, and swing" tabindex="0" role="button" aria-label="Play Empire of Sin – Excerpts 2">
         <div class="track-main">
             <span class="track-name">Empire of Sin – Excerpts 2</span>
-            <span class="track-origin">Empire of Sin (Romero Games)</span>
+            <span class="track-origin">Empire of Sin</span>
         </div>
         <span class="track-extra">~0:30</span>
     </li>
