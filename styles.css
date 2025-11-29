@@ -1016,26 +1016,29 @@ button:disabled {
 
 .mini-player {
     position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 10px 16px;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    transform: translateY(6.25rem);
+    padding: 0.625rem 1.25rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
     background: linear-gradient(
         90deg,
         rgba(10, 22, 40, 0.98),
         rgba(9, 9, 20, 0.98)
     );
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
-    transform: translateY(100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 3.125rem;
+    backdrop-filter: blur(0.625rem);
+    box-shadow: 0 0.625rem 2.5rem rgba(0, 0, 0, 0.6);
     opacity: 0;
     pointer-events: none;
     z-index: 40;
     transition: transform 0.22s ease, opacity 0.22s ease;
+    max-width: 25rem;
+    width: auto;
 }
 
 .mini-player.visible {
@@ -1097,9 +1100,17 @@ button:disabled {
 
 @media (max-width: 640px) {
     .mini-player {
-        padding-inline: 12px;
+        left: 0.75rem;
+        right: 0.75rem;
+        transform: translateX(0) translateY(6.25rem);
+        max-width: none;
+        width: auto;
+        bottom: 0.75rem;
+    }
+    .mini-player.visible {
+        transform: translateX(0) translateY(0);
     }
     .mini-title {
-        max-width: 70vw;
+        max-width: 50vw;
     }
 }
