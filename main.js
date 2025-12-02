@@ -12,7 +12,7 @@ if (form) {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending...';
         const formData = new FormData(form);
-        formData.append('access_key', 'YOUR_WEB3FORMS_ACCESS_KEY');
+        formData.append('access_key', 'd55c85ff-16a6-4639-95b6-7584644f1c30');
         try {
             const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
