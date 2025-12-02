@@ -17,7 +17,9 @@ form.addEventListener('submit', async (e) => {
 
     const formData = new FormData(form);
     
-    // access_key is already present in the form as a hidden field
+    // Using Web3Forms - you'll need to replace this with your access key
+    // Get free key at: https://web3forms.com
+    formData.append('access_key', 'd55c85ff-16a6-4639-95b6-7584644f1c30');
 
     try {
         const response = await fetch('https://api.web3forms.com/submit', {
