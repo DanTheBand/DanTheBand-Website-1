@@ -17,9 +17,7 @@ form.addEventListener('submit', async (e) => {
 
     const formData = new FormData(form);
     
-    // Using Web3Forms - you'll need to replace this with your access key
-    // Get free key at: https://web3forms.com
-    formData.append('access_key', 'YOUR_WEB3FORMS_ACCESS_KEY');
+    // access_key is already present in the form as a hidden field
 
     try {
         const response = await fetch('https://api.web3forms.com/submit', {
