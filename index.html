@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' http://localhost:*; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://web3forms.com http://localhost:*; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com http://localhost:*; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https: http://localhost:*; connect-src 'self' https://api.web3forms.com http://localhost:*; frame-ancestors 'none'; base-uri 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' http://localhost:*; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://web3forms.com http://localhost:*; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com http://localhost:*; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https: http://localhost:*; connect-src 'self' https://api.web3forms.com http://localhost:*; form-action 'self' https://api.web3forms.com; frame-ancestors 'none'; base-uri 'self';">
     <title>Dan Policar - Grammy-Nominated Musician & Composer for Video Games, Film, & Brands</title>
     <meta name="description" content="Hire Dan Policar to craft a bold, immersive score. Specializing in high-impact music for major video games (Empire of Sin), film, and global brand advertising.">
     <!-- Open Graph Meta Tags -->
@@ -389,7 +389,7 @@
 
                     <div class="form-group">
                         <label for="projectType">Project Type* (Required)</label>
-                        <select id="projectType" name="Project Type" required aria-required="true">
+                        <select id="projectType" name="project_type" required aria-required="true">
                             <option value="">Select project type...</option>
                             <option value="Video Game Score">Video Game Score</option>
                             <option value="Film / TV Score">Film / TV Score</option>
@@ -399,30 +399,28 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="projectTitle">Project Title &amp; Company</label>
+                        <label for="projectTitle">Project Title &amp; Company (Optional)</label>
                         <input
                             type="text"
                             id="projectTitle"
-                            name="Project Title &amp; Company"
+                            name="project_title_company"
                             placeholder='E.g., "The Last Starship, Studio Name"'
                         >
                     </div>
 
                     <div class="form-group">
-                        <label for="timeline">Desired Timeline / Deadline* (Required)</label>
-                        <input
-                            type="text"
-                            id="timeline"
-                            name="Timeline / Deadline"
-                            required
-                            aria-required="true"
-                            placeholder='E.g., "Need final delivery by March 2026"'
-                        >
+                        <label for="projectDetails">Project Details (Optional)</label>
+                        <textarea
+                            id="projectDetails"
+                            name="message"
+                            rows="6"
+                            placeholder="Tell me briefly about your project, what you need from the music, and anything important like timeline or budget."
+                        ></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="budget">Budget Range (Optional)</label>
-                        <select id="budget" name="Budget Range">
+                        <select id="budget" name="budget_range">
                             <option value="">Not decided yet</option>
                             <option value="Under $10,000">Under $10,000</option>
                             <option value="$10,000 - $25,000">$10,000 - $25,000</option>
@@ -431,21 +429,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="projectDetails">Project Details</label>
-                        <textarea
-                            id="projectDetails"
-                            name="Project Details"
-                            rows="6"
-                            placeholder="Tell me about your music needs, style direction, and any specific technical requirements."
-                        ></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="name">Name* (Required)</label>
+                        <label for="name">Your Name* (Required)</label>
                         <input
                             type="text"
                             id="name"
-                            name="Name"
+                            name="name"
                             required
                             aria-required="true"
                         >
@@ -456,7 +444,7 @@
                         <input
                             type="email"
                             id="email"
-                            name="Email"
+                            name="email"
                             required
                             aria-required="true"
                         >
