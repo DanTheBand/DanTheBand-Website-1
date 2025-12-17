@@ -403,10 +403,19 @@ button:disabled {
 }
 
 /* ===== Audio Reel Section ===== */
-.audio-section-heading {
-    font-size: 1.4rem;
+
+.audio-section-heading,
+.section > h2,
+#testimonials > h2,
+.release-content ~ h2,
+.section#contact > h2 {
+    font-size: 2.1rem;
     margin: 1.75rem 0 0.25rem;
     font-weight: 600;
+    color: #c8dff0;
+    font-family: var(--font-system);
+    letter-spacing: 0.01em;
+    text-shadow: 0 2px 8px rgba(100,150,200,0.12);
 }
 
 .audio-section-subtitle {
@@ -806,9 +815,27 @@ a:hover {
 
 .testimonial figcaption {
     display: block;
-    font-size: 0.9rem;
-    color: #a8c5e0;
+    font-size: 1.25rem;
+    color: #e0e8ff;
     font-style: normal;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 0.5rem;
+    letter-spacing: 0.01em;
+    /* ...existing code... */
+}
+
+.testimonial-name {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.01em;
+    display: inline-block;
+    margin-right: 0.25em;
+}
+
+.testimonial-title {
+    color: #7fa0c0;
     font-weight: 500;
 }
 
