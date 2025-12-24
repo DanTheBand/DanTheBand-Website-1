@@ -1,3 +1,5 @@
+
+# robots.txt updated 2025-12-24
 User-agent: *
 Allow: /
 Disallow: /images/optimized/
